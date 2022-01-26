@@ -1,0 +1,23 @@
+:root {
+  --black-color: #000000;
+  --white-color: #ffffff;
+  --red-color: #eb1527;
+
+  --primary-color: #ffda79;
+  --secondary-color: #ccae62;
+  --active-color: #cc8e35;
+
+  /* Fonts */
+  --font-family-body: "Montserrat", sans-serif;
+  --font-family-title: "Raleway", sans-serif;
+  --font-size-title: 2em;
+  --font-size-body: 1.25em;
+  --font-size-caption: 1em;
+}
+
+.body {
+  font-size: 20px;
+  font-family: var(--font-family-body);
+  color: var(--black-color);
+  background-color: var(--primary-color);
+}

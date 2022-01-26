@@ -1,0 +1,11 @@
+<article class="main__daily">
+  <ol class="daily__activitys">
+    <li class="daily__activity" *ngFor="let activiy of initialRoutine">
+      <span class="daily__icon">{{ activiy.icon }}</span>
+      <p class="daily__title">{{ activiy.title }}</p>
+      <span class="daily __time">
+        {{ activiy.start }} ·{{ activiy.duration }} min</span
+      >
+    </li>
+  </ol>
+</article>

@@ -1,0 +1,19 @@
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2em;
+}
+
+.not-found__title {
+  font-size: 9em;
+  line-height: 0;
+  font-family: var(--font-family-title);
+  color: var(--active-color);
+  user-select: none;
+}
+
+.info_desciption {
+  max-width: 21em;
+  text-align: center;
+}
