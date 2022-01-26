@@ -35,6 +35,14 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "ts-standard": "11.0.0",
     "typescript": "~4.5.2"
-  }
+  },
+    "ts-standard": {
+      "project": "./tsconfig.json"
+    },
+    "eslintConfig": {
+      "extends": "./node_modules/ts-standard/eslintrc.json",
+      "parserOptions": { "project": ["tsconfig.json"] }
+    }
 }
