@@ -1,10 +1,10 @@
-<!-- <header class="header">
+<header class="header">
   <nav class="header__nav">
     <ul class="header__menu">
       <li *ngFor="let option of MENU_OPTIONS" id="{{ option.id }}">
         <a
-          href="#"
           class="header__link"
+          routerLink="{{ option.id }}"
           routerLinkActive="header__link--active"
         >
           <span>{{ option.title.toUpperCase() }}</span>
@@ -12,6 +12,6 @@
       </li>
     </ul>
   </nav>
-</header> -->
-
-<!-- <router-outlet></router-outlet> -->
+</header>
+<router-outlet></router-outlet>
+<app-show-routine></app-show-routine>

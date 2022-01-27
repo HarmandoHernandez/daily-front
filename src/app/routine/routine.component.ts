@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
 import { MenuOption } from './../shared/models/MenuOption'
 
@@ -15,9 +15,8 @@ export class RoutineComponent implements OnInit {
     new MenuOption('delete', 'Delete')
   ]
 
-  constructor() { }
+  // constructor () { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
-
 }

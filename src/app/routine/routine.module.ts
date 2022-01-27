@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
-// import { RoutineRoutingModule } from './routine-routing.module';
+import { RoutineRoutingModule } from './routine-routing.module'
 import { RoutineComponent } from './routine.component'
 import { AddRoutineComponent } from './add-routine/add-routine.component'
 import { ShowRoutineComponent } from './show-routine/show-routine.component'
@@ -17,15 +17,11 @@ import { DeleteRoutineComponent } from './delete-routine/delete-routine.componen
     DeleteRoutineComponent
   ],
   imports: [
-    CommonModule
-    /* RoutineRoutingModule */
+    CommonModule,
+    RoutineRoutingModule
   ],
   exports: [
-    RoutineComponent,
-    AddRoutineComponent,
-    ShowRoutineComponent,
-    UpdateRoutineComponent,
-    DeleteRoutineComponent
+    RoutineComponent
   ]
 })
 export class RoutineModule { }
