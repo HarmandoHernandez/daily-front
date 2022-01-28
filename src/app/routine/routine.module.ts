@@ -3,13 +3,16 @@ import { CommonModule } from '@angular/common'
 import { ActivityComponent } from './activity/activity.component'
 import { RoutineComponent } from './routine/routine.component'
 
+import { ReactiveFormsModule } from '@angular/forms'
+
 @NgModule({
   declarations: [
     ActivityComponent,
     RoutineComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   exports: [
     ActivityComponent,

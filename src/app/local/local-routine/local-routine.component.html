@@ -1,2 +1,8 @@
 <p>local-routine works!</p>
-<app-routine></app-routine>
+<div class="local">
+  <app-routine
+    [routine]="routine"
+    (activityId)="showActivity($event)"
+  ></app-routine>
+  <button class="add"><span>+ Add Activity</span></button>
+</div>
