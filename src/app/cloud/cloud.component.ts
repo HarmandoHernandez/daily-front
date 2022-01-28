@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { tap } from 'rxjs';
+import { Component, OnInit } from '@angular/core'
 import { CloudService } from './cloud.service'
 
 @Component({
@@ -8,15 +7,13 @@ import { CloudService } from './cloud.service'
   styleUrls: ['./cloud.component.css']
 })
 export class CloudComponent implements OnInit {
+  constructor (private readonly service: CloudService) { }
 
-  constructor(private service: CloudService ) { }
-
-  ngOnInit(): void {
-   /*  this.service.getProducts()
+  ngOnInit (): void {
+    /*  this.service.getProducts()
     .pipe (
       tap ( res => console.log(res))
     )
     .subscribe() */
   }
-
 }

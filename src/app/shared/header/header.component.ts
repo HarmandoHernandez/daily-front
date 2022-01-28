@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   ]
 
   ngOnInit (): void {
-    this.deployMenu()
+    // this.deployMenu()
   }
 
   /* const DeployMenu = () => {
@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
 
   DeployMenu() */
 
-  deployMenu = () => {
+  /* deployMenu = () => {
     const deploy = document.getElementById('header__deploy-menu')
     const bars = document.querySelectorAll('#header__deploy-menu span')
     const menu = document.getElementById('header__menu')
@@ -48,5 +48,5 @@ export class HeaderComponent implements OnInit {
       // Menu
       menu?.classList.toggle('header__menu--open')
     })
-  }
+  } */
 }
