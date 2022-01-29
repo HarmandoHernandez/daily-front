@@ -19,6 +19,11 @@
 
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.activity:hover {
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2);
 }
 
 .activity--active {

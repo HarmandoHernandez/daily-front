@@ -1,0 +1,39 @@
+.form {
+  box-sizing: border-box;
+  padding: 10px;
+
+  text-align: start;
+}
+
+.form__label {
+  display: block;
+  padding: 1em 0 0.5em 0;
+}
+
+input {
+  padding: 0.25em 0.5em;
+  background-color: transparent;
+  border: 2px solid var(--secondary-color);
+  border-radius: 4px;
+}
+
+input:focus {
+  border-color: var(--active-color);
+  box-shadow: 0 0 2px 1px var(--active-color);
+  outline: 3px solid transparent;
+}
+
+.form__actions {
+  display: flex;
+  gap: 0.5em;
+  flex-direction: column;
+  padding-top: 2em;
+}
+
+button {
+  padding: 0.25em 0.5em;
+  background-color: transparent;
+  border: 2px solid var(--secondary-color);
+  border-radius: 4px;
+  cursor: pointer;
+}

@@ -4,6 +4,6 @@ export class Activity {
     public icon: string,
     public title: string,
     public startHour: string,
-    public durationMins: number
+    public durationMins: string
   ) { }
 }

@@ -1,13 +1,38 @@
-<p>activity works!</p>
-<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-  <label for="first-name">First Name: </label>
-  <input id="first-name" type="text" formControlName="firstName" />
+<form [formGroup]="activityForm" (ngSubmit)="onSubmit()" class="form">
+  <div class="form__icon">
+    <label for="icon" class="form__label">Icon</label>
+    <input
+      id="icon"
+      type="text"
+      formControlName="icon"
+      placeholder="🙂"
+      autocomplete="off"
+    />
+    <!-- <div class="invalid-feedback">Icon is required.</div> -->
+  </div>
+  <div class="form__title">
+    <label for="title" class="form__label">Title</label>
+    <input
+      id="title"
+      type="text"
+      formControlName="title"
+      placeholder="breakfast..."
+      autocomplete="off"
+    />
+    <!-- <div class="invalid-feedback">Title is required.</div> -->
+  </div>
+  <div class="form__start">
+    <label for="startHour" class="form__label">Start hour</label>
+    <input id="startHour" type="time" formControlName="startHour" />
+  </div>
+  <div class="form__duration">
+    <label for="durationMins" class="form__label">Duration</label>
+    <input id="durationMins" type="time" formControlName="durationMins" />
+  </div>
 
-  <label for="last-name">Last Name: </label>
-  <input id="last-name" type="text" formControlName="lastName" />
-
-  <p>Complete the form to enable button.</p>
-  <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+  <div class="form__actions">
+    <button type="submit" [disabled]="!activityForm.valid">Save</button>
+    <button (click)="updateName()">Update Name</button>
+    <button>Delete</button>
+  </div>
 </form>
-
-<button (click)="updateName()">Update Name</button>

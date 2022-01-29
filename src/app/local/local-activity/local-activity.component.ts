@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
+
+import { LocalService } from './../local.service'
+import { Activity } from './../../shared/models/Activity'
 
 @Component({
   selector: 'app-local-activity',
@@ -6,10 +10,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./local-activity.component.css']
 })
 export class LocalActivityComponent implements OnInit {
+  activity?: Activity
 
-  constructor() { }
+  constructor (
+    private readonly route: ActivatedRoute,
+    private readonly localService: LocalService
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
+    const activityId = this.route.snapshot.paramMap.get('id') ?? ''
+    console.log(activityId)
+    this.activity = this.localService.getActivity(activityId)
+    console.log(this.activity)
   }
-
 }

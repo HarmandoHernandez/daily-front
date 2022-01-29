@@ -56,13 +56,17 @@ export class RoutineComponent implements OnInit {
     const { date, month, day, year } = dateObj
 
     const activityStartHour = activity.startHour?.split(':')
-    const hour = Number(activityStartHour[0])
-    const min = Number(activityStartHour[1])
+    const startHour = Number(activityStartHour[0])
+    const startMin = Number(activityStartHour[1])
 
-    const duration = this.calcTime(activity.durationMins + min)
+    const activityDurationTime = activity.durationMins?.split(':')
+    const durationHours = Number(activityDurationTime[0])
+    const durationMins = Number(activityDurationTime[1])
 
-    const timeActivityStart = new Date(year, month, day, hour, min, 0, 0)
-    const timeActivityEnd = new Date(year, month, day, duration.hours + hour, duration.min, 0, 0)
+    const duration = this.calcTime(durationMins + startMin)
+
+    const timeActivityStart = new Date(year, month, day, startHour, startMin, 0, 0)
+    const timeActivityEnd = new Date(year, month, day, (duration.hours + durationHours) + startHour, duration.min, 0, 0)
 
     const start = date.getTime() > timeActivityStart.getTime()
     const end = date.getTime() < timeActivityEnd.getTime()
