@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router'
 
 import { LocalService } from './../local.service'
 import { Activity } from 'src/app/shared/models/Activity'
+import { Actions } from 'src/app/shared/Actions'
 
 @Component({
   selector: 'app-local-activity',
@@ -10,6 +11,7 @@ import { Activity } from 'src/app/shared/models/Activity'
   styleUrls: ['./local-activity.component.css']
 })
 export class LocalActivityComponent implements OnInit {
+  hadActivity: boolean = false
   activity?: Activity
 
   constructor (
@@ -18,9 +20,33 @@ export class LocalActivityComponent implements OnInit {
   ) { }
 
   ngOnInit (): void {
+    // Obteniendo ID
     const activityId = this.route.snapshot.paramMap.get('id') ?? ''
-    console.log(activityId)
-    this.activity = this.localService.getActivity(activityId)
-    console.log(this.activity)
+
+    // Verifica si el id es para agregar nueva activity
+    if (activityId === Actions.NEW) {
+      this.setActivityData(new Activity('', '', '', '20:00', '00:05'))
+    } else {
+      // Busca alguna actividad con el id resivido
+      const activity = this.localService.findActivity(activityId)
+      if (activity !== undefined) this.setActivityData(activity)
+    }
+  }
+
+  private setActivityData (activity: Activity): void {
+    this.activity = activity
+    this.hadActivity = true
+  }
+
+  deleteActivity (id: string): void {
+    this.localService.removeActivity(id)
+  }
+
+  updateActivity (activity: Activity): void {
+    this.localService.updateActivity(activity)
+  }
+
+  addActivity (activity: Activity): void {
+    this.localService.addActivity(activity)
   }
 }

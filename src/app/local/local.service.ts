@@ -6,38 +6,49 @@ import { Activity } from 'src/app/shared/models/Activity'
   providedIn: 'root'
 })
 export class LocalService {
-  // constructor () { }
+  private readonly ROUTINE_NAME = 'routine'
 
-  getRoutine (): Activity[] {
-    return this.routine
+  get routine (): Activity[] {
+    // TODO: Ordenar por horarios
+    return JSON.parse(localStorage.getItem(this.ROUTINE_NAME) ?? '[]')
   }
 
-  getActivity (id: string): Activity {
-    const index = this.routine.findIndex(activity => activity.id === id)
-    return this.routine[index]
+  findActivity (id: string): Activity | undefined {
+    return this.routine.find(activity => activity.id === id)
   }
 
   addActivity (activity: Activity): Activity {
-    // const { icon, title, startHour, durationMins } = activity
-    const id = this.getId()
-    // const newActivity = new Activity(id, icon, title, startHour, durationMins)
-    activity.id = id
-    this.routine.push(activity)
+    activity.id = this.newId
+    const routine = this.routine
+    routine.push(activity)
+    this.saveRoutine(routine)
     return activity
   }
 
-  deleteActivity (id: string): boolean {
-    this.routine = this.routine.filter(activity => activity.id !== id)
-    return true
+  updateActivity (newActivity: Activity): Activity {
+    const routine = this.routine
+    const activityIndex = routine.findIndex(activity => activity.id === newActivity.id)
+    routine[activityIndex] = newActivity
+    this.saveRoutine(routine)
+    return newActivity
   }
 
-  getId (): string {
-    const ids = this.routine.map(activity => Number(activity.id))
-    const id = Math.max(...ids) + 1
+  removeActivity (id: string): void {
+    const routine = this.routine.filter(activity => activity.id !== id)
+    this.saveRoutine(routine)
+  }
+
+  private saveRoutine (routine: Activity[]): void {
+    localStorage.setItem(this.ROUTINE_NAME, JSON.stringify(routine))
+  }
+
+  private get newId (): string {
+    const allIds = this.routine.map(activity => Number(activity.id))
+    const id = Math.max(...allIds) + 1
     return id.toString()
   }
 
-  routine = [
+  /* routine = [
     new Activity('1', '📚', 'Lee/Escribe/dibuja', '05:10', '00:30'),
     new Activity('2', '🧘', 'Meditación', '05:50', '00:30'),
     new Activity('3', '🏋️', 'Ejercicio', '06:30', '00:60'),
@@ -50,5 +61,5 @@ export class LocalService {
     new Activity('10', '🧖', 'Baño', '19:40', '00:40'),
     new Activity('11', '🧘', 'Meditación', '20:30', '00:20'),
     new Activity('12', '💤', 'Dormir', '21:00', '08:00')
-  ]
+  ] */
 }

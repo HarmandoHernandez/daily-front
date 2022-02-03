@@ -1,15 +1,19 @@
-<form [formGroup]="activityForm" (ngSubmit)="onSubmit()" class="form">
+<!-- TODO: BTN de regresar a pestaña pricipal-->
+<form [formGroup]="activityForm" (ngSubmit)="save()" class="form">
   <div class="form__icon">
     <label for="icon" class="form__label">Icon</label>
     <input
       id="icon"
       type="text"
+      editable="true"
       formControlName="icon"
       placeholder="🙂"
       autocomplete="off"
+      [readonly]="currentAction === 'view'"
     />
     <!-- <div class="invalid-feedback">Icon is required.</div> -->
   </div>
+
   <div class="form__title">
     <label for="title" class="form__label">Title</label>
     <input
@@ -18,21 +22,50 @@
       formControlName="title"
       placeholder="breakfast..."
       autocomplete="off"
+      [readonly]="currentAction === 'view'"
     />
     <!-- <div class="invalid-feedback">Title is required.</div> -->
   </div>
+
   <div class="form__start">
-    <label for="startHour" class="form__label">Start hour</label>
-    <input id="startHour" type="time" formControlName="startHour" />
+    <label for="startTime" class="form__label">Start hour</label>
+    <input
+      id="startTime"
+      type="time"
+      formControlName="startTime"
+      [readonly]="currentAction === 'view'"
+    />
   </div>
+
   <div class="form__duration">
-    <label for="durationMins" class="form__label">Duration</label>
-    <input id="durationMins" type="time" formControlName="durationMins" />
+    <label for="durationTime" class="form__label">Duration</label>
+    <input
+      id="durationTime"
+      type="time"
+      formControlName="durationTime"
+      [readonly]="currentAction === 'view'"
+    />
   </div>
 
   <div class="form__actions">
-    <button type="submit" [disabled]="!activityForm.valid">Save</button>
-    <button (click)="updateName()">Update Name</button>
-    <button>Delete</button>
+    <div
+      *ngIf="
+        currentAction === 'new' || currentAction === 'edit';
+        then newAndEdit;
+        else view
+      "
+    ></div>
+    <ng-template #newAndEdit>
+      <button type="submit" [disabled]="!activityForm.valid">Save</button>
+      <button type="button" (click)="cancel()">Cancel</button>
+    </ng-template>
+    <ng-template #view>
+      <button type="button" (click)="edit()">Edit</button>
+      <button type="button" (click)="delete()" class="btn__delete">
+        Delete
+      </button>
+    </ng-template>
   </div>
 </form>
+
+<button type="button">Cerrar</button>

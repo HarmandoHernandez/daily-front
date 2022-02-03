@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 
 import { Activity } from 'src/app/shared/models/Activity'
+import { Actions } from 'src/app/shared/Actions'
 import { LocalService } from './../local.service'
 
 @Component({
@@ -10,6 +11,7 @@ import { LocalService } from './../local.service'
   styleUrls: ['./local-routine.component.css']
 })
 export class LocalRoutineComponent implements OnInit {
+  readonly newRoute = Actions.NEW
   routine: Activity [] = []
   // Se conecta al service y le envia los datos a los componentes hijos incrustados
   constructor (
@@ -19,11 +21,10 @@ export class LocalRoutineComponent implements OnInit {
   ) { }
 
   ngOnInit (): void {
-    this.routine = this.localService.getRoutine()
+    this.routine = this.localService.routine
   }
 
   showActivity (activityId: string): void {
     void this.router.navigate([`activity/${activityId}`], { relativeTo: this.route })
-    // this.router.navigate(['items'], { relativeTo: this.route })
   }
 }

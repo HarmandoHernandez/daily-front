@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { FormBuilder, Validators } from '@angular/forms'
 import { BehaviorSubject } from 'rxjs'
 
@@ -12,47 +12,82 @@ import { Actions } from 'src/app/shared/Actions'
 })
 export class ActivityComponent implements OnInit {
   @Input() activity?: Activity
+  @Output() deleteEvent = new EventEmitter<string>()
+  @Output() updateEvent = new EventEmitter<Activity>()
+  @Output() addEvent = new EventEmitter<Activity>()
+  currentAction = ''
+
+  private readonly actionControl = new BehaviorSubject(Actions.VIEW)
+  activityForm = this.fb.group({
+    id: [''],
+    icon: ['', Validators.required],
+    title: [''],
+    startTime: ['12:00'],
+    durationTime: ['00:05']
+  })
   // TODO Enable btns segun el estado de la activity
   // TODO Editar, Eliminar Y Agregar Actividad
 
   constructor (private readonly fb: FormBuilder) { }
 
-  activityForm = this.fb.group({
-    id: [''],
-    icon: ['', Validators.required],
-    title: [''],
-    startHour: ['12:00'],
-    durationMins: ['00:05']
-  })
-
   ngOnInit (): void {
-    console.log(this.activity)
-    if (this.activity != null) {
+    if (this.activity !== undefined && this.activity.id !== '') {
       this.setData(this.activity)
+    } else {
+      this.actionControl.next(Actions.NEW)
     }
-    const currentAction = new BehaviorSubject(Actions.VIEW)
-
-    currentAction.subscribe(console.log)
+    this.actionControl.subscribe(action => {
+      this.currentAction = action
+    })
   }
 
-  setData (activity: Activity): any {
+  setData (activity: Activity): void {
     this.activityForm.patchValue({
       id: activity.id,
       icon: activity.icon,
       title: activity.title,
-      startHour: activity.startTime,
-      durationMins: activity.durationTime
+      startTime: activity.startTime,
+      durationTime: activity.durationTime
     })
   }
 
-  updateName (): any {
-    this.activityForm.patchValue({
-      title: 'Lucy'
-    })
+  save (): any {
+    // TODO: validar que en realida algo cambio
+    const activity = new Activity(
+      this.activityForm.value.id,
+      this.activityForm.value.icon,
+      this.activityForm.value.title,
+      this.activityForm.value.startTime,
+      this.activityForm.value.durationTime
+    )
+    if (this.currentAction === Actions.EDIT) {
+      this.updateEvent.emit(activity)
+    }
+    if (this.currentAction === Actions.NEW) {
+      this.addEvent.emit(activity)
+    }
+    this.actionControl.next(Actions.VIEW)
   }
 
-  onSubmit (): any {
-    // TODO: Use EventEmitter with form value
-    console.warn(this.activityForm.value)
+  cancel (): void {
+    if (this.currentAction === Actions.EDIT) {
+      if (this.activity !== undefined) {
+        this.setData(this.activity)
+      }
+    }
+    if (this.currentAction === Actions.NEW) {
+      // TODO: Redirigir a pantalla principal
+    }
+    this.actionControl.next(Actions.VIEW)
+  }
+
+  edit (): void {
+    this.actionControl.next(Actions.EDIT)
+  }
+
+  delete (): void {
+    this.deleteEvent.emit(this.activity?.id)
+    // TODO: Redireccionar a pantalla pricipal
+    // TODO: Alerta de confirmación para eliminar
   }
 }

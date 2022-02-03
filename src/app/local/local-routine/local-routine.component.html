@@ -4,5 +4,7 @@
     [routine]="routine"
     (activityId)="showActivity($event)"
   ></app-routine>
-  <button class="add"><span>+ Add Activity</span></button>
+  <button class="add" routerLink="activity/{{ newRoute }}">
+    <span>+ Add Activity</span>
+  </button>
 </div>

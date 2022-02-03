@@ -1,4 +1,14 @@
-<p>local-activity works!</p>
 <div class="local__activity">
-  <app-activity [activity]="activity"></app-activity>
+  <app-activity
+    *ngIf="hadActivity; else nofound"
+    [activity]="activity"
+    (deleteEvent)="deleteActivity($event)"
+    (updateEvent)="updateActivity($event)"
+    (addEvent)="addActivity($event)"
+  >
+  </app-activity>
+
+  <ng-template #nofound>
+    <div class="alert__nofound">Activity not found.</div>
+  </ng-template>
 </div>
