@@ -14,10 +14,3 @@ export class CloudService {
     return this.http.get<Activity[]>(this.API)
   } */
 }
-
-interface Activity {
-  id?: string
-  title?: string
-  start?: string
-  duration?: string
-}

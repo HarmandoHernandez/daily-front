@@ -12,6 +12,8 @@ import { Actions } from './../../shared/Actions'
 })
 export class ActivityComponent implements OnInit {
   @Input() activity?: Activity
+  // TODO Enable btns segun el estado de la activity
+  // TODO Editar, Eliminar Y Agregar Actividad
 
   constructor (private readonly fb: FormBuilder) { }
 
@@ -38,8 +40,8 @@ export class ActivityComponent implements OnInit {
       id: activity.id,
       icon: activity.icon,
       title: activity.title,
-      startHour: activity.startHour,
-      durationMins: activity.durationMins
+      startHour: activity.startTime,
+      durationMins: activity.durationTime
     })
   }
 

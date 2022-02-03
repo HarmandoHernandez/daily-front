@@ -3,7 +3,7 @@ export class Activity {
     public id: string,
     public icon: string,
     public title: string,
-    public startHour: string,
-    public durationMins: string
+    public startTime: string,
+    public durationTime: string
   ) { }
 }
