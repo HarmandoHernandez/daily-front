@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 
-import { Activity } from './../../shared/models/Activity'
+import { Activity } from 'src/app/shared/models/Activity'
 import { LocalService } from './../local.service'
 
 @Component({

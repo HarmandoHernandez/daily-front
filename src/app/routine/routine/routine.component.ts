@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, Output, EventEmitter, Input } from '@ang
 import { HasEventTargetAddRemove } from 'rxjs/internal/observable/fromEvent'
 import { fromEvent } from 'rxjs'
 
-import { Activity } from './../../shared/models/Activity'
+import { Activity } from 'src/app/shared/models/Activity'
 
 @Component({
   selector: 'app-routine',

@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core'
 import { FormBuilder, Validators } from '@angular/forms'
 import { BehaviorSubject } from 'rxjs'
 
-import { Activity } from './../../shared/models/Activity'
-import { Actions } from './../../shared/Actions'
+import { Activity } from 'src/app/shared/models/Activity'
+import { Actions } from 'src/app/shared/Actions'
 
 @Component({
   selector: 'app-activity',

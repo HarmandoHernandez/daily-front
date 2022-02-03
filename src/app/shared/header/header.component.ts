@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { MenuOption } from './../models/MenuOption'
+
+import { MenuOption } from 'src/app/shared/models/MenuOption'
 
 @Component({
   selector: 'app-header',
