@@ -11,7 +11,6 @@ import { LocalService } from './../local.service'
   styleUrls: ['./local-routine.component.css']
 })
 export class LocalRoutineComponent implements OnInit {
-  readonly newRoute = Actions.NEW
   routine: Activity [] = []
   // Se conecta al service y le envia los datos a los componentes hijos incrustados
   constructor (
@@ -26,5 +25,9 @@ export class LocalRoutineComponent implements OnInit {
 
   showActivity (activityId: string): void {
     void this.router.navigate([`activity/${activityId}`], { relativeTo: this.route })
+  }
+
+  clickEventAdd (): void {
+    void this.router.navigate([`activity/${Actions.NEW}`], { relativeTo: this.route })
   }
 }

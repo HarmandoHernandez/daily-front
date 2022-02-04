@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { FormBuilder, Validators } from '@angular/forms'
 import { BehaviorSubject } from 'rxjs'
+import { Router, ActivatedRoute } from '@angular/router'
 
 import { Activity } from 'src/app/shared/models/Activity'
 import { Actions } from 'src/app/shared/Actions'
@@ -25,10 +26,10 @@ export class ActivityComponent implements OnInit {
     startTime: ['12:00'],
     durationTime: ['00:05']
   })
-  // TODO Enable btns segun el estado de la activity
-  // TODO Editar, Eliminar Y Agregar Actividad
 
-  constructor (private readonly fb: FormBuilder) { }
+  constructor (private readonly fb: FormBuilder,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router) { }
 
   ngOnInit (): void {
     if (this.activity !== undefined && this.activity.id !== '') {
@@ -42,6 +43,7 @@ export class ActivityComponent implements OnInit {
   }
 
   setData (activity: Activity): void {
+    // TODO: Validaciones
     this.activityForm.patchValue({
       id: activity.id,
       icon: activity.icon,
@@ -77,6 +79,7 @@ export class ActivityComponent implements OnInit {
     }
     if (this.currentAction === Actions.NEW) {
       // TODO: Redirigir a pantalla principal
+      this.close()
     }
     this.actionControl.next(Actions.VIEW)
   }
@@ -87,7 +90,12 @@ export class ActivityComponent implements OnInit {
 
   delete (): void {
     this.deleteEvent.emit(this.activity?.id)
-    // TODO: Redireccionar a pantalla pricipal
+    this.close() // TODO: esperar respuesta de confirmación
     // TODO: Alerta de confirmación para eliminar
+  }
+
+  close (): void {
+    // TODO: sacar a componente local-activity
+    void this.router.navigate(['local'])
   }
 }

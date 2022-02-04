@@ -68,4 +68,6 @@
   </div>
 </form>
 
-<button type="button">Cerrar</button>
+<button type="button" *ngIf="currentAction === 'view'" (click)="close()">
+  Close
+</button>

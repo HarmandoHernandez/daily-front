@@ -5,8 +5,8 @@ import { LocalRoutingModule } from './local-routing.module'
 import { LocalComponent } from './local.component'
 import { LocalRoutineComponent } from './local-routine/local-routine.component'
 import { LocalActivityComponent } from './local-activity/local-activity.component'
-
-import { RoutineModule } from './../routine/routine.module'
+import { RoutineModule } from 'src/app/routine/routine.module'
+import { UtilsModule } from 'src/app/utils/utils.module'
 
 @NgModule({
   declarations: [
@@ -17,7 +17,8 @@ import { RoutineModule } from './../routine/routine.module'
   imports: [
     CommonModule,
     LocalRoutingModule,
-    RoutineModule
+    RoutineModule,
+    UtilsModule
   ]
 })
 export class LocalModule { }

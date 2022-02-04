@@ -1,10 +1,15 @@
-<p>local-routine works!</p>
 <div class="local__routine">
   <app-routine
     [routine]="routine"
     (activityId)="showActivity($event)"
   ></app-routine>
-  <button class="add" routerLink="activity/{{ newRoute }}">
+  <!-- TODO: Componente del btn para los demas btns-->
+  <!--   <button class="add" routerLink="activity/{{ newRoute }}">
     <span>+ Add Activity</span>
-  </button>
+  </button> -->
+  <app-btn
+    title="Add activity"
+    color="#82ccdd"
+    (clickEvent)="clickEventAdd()"
+  ></app-btn>
 </div>

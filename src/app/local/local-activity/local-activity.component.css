@@ -2,4 +2,5 @@
   width: max-content;
   max-width: var(--max-with-routine-view);
   margin: 0 auto;
+  text-align: center;
 }
