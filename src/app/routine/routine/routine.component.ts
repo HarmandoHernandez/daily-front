@@ -49,15 +49,14 @@ export class RoutineComponent implements OnInit {
     if (current != null) {
       current.classList.add('activity--active')
     }
-    // TODO : quitar el estilo
+    // TODO: quitar el estilo
   }
 
   identifyActivity (activity: Activity, dateObj: any): boolean {
     const { date, month, day, year } = dateObj
-
-    const activityStartHour = activity.startTime?.split(':')
-    const startHour = Number(activityStartHour[0])
-    const startMin = Number(activityStartHour[1])
+    const activityStartTime = activity.startTime?.split(':')
+    const startHour = Number(activityStartTime[0])
+    const startMin = Number(activityStartTime[1])
 
     const activityDurationTime = activity.durationTime?.split(':')
     const durationHours = Number(activityDurationTime[0])

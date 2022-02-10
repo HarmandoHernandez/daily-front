@@ -4,3 +4,7 @@
   margin: 0 auto;
   text-align: center;
 }
+
+.alert__nofound {
+  padding: 2em;
+}

@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { FormBuilder, Validators } from '@angular/forms'
 import { BehaviorSubject } from 'rxjs'
-import { Router, ActivatedRoute } from '@angular/router'
 
 import { Activity } from 'src/app/shared/models/Activity'
 import { Actions } from 'src/app/shared/Actions'
@@ -11,14 +10,29 @@ import { Actions } from 'src/app/shared/Actions'
   templateUrl: './activity.component.html',
   styleUrls: ['./activity.component.css']
 })
-export class ActivityComponent implements OnInit {
-  @Input() activity?: Activity
+export class ActivityComponent {
+  btnEditColor = '#74b9ff'
+  btnDeleteColor = '#ff7675'
+  btnSaveColor = '#00b894'
+  btnCancelColor = '#fdcb6e'
+  btnCloseColor = '#ffeaa7'
+  // eslint-disable-next-line accessor-pairs
+  @Input() set activity (activity: Activity | undefined) {
+    if (activity !== undefined) {
+      this._activity = activity
+      this.evalData(activity)
+    }
+  }
+
   @Output() deleteEvent = new EventEmitter<string>()
   @Output() updateEvent = new EventEmitter<Activity>()
   @Output() addEvent = new EventEmitter<Activity>()
-  currentAction = ''
-
+  @Output() closeEvent = new EventEmitter<boolean>()
   private readonly actionControl = new BehaviorSubject(Actions.VIEW)
+  private currentAction = Actions.VIEW
+  private _activity?: Activity
+
+  // TODO: Validaciones
   activityForm = this.fb.group({
     id: [''],
     icon: ['', Validators.required],
@@ -27,23 +41,22 @@ export class ActivityComponent implements OnInit {
     durationTime: ['00:05']
   })
 
-  constructor (private readonly fb: FormBuilder,
-    private readonly route: ActivatedRoute,
-    private readonly router: Router) { }
+  constructor (private readonly fb: FormBuilder) { }
 
   ngOnInit (): void {
-    if (this.activity !== undefined && this.activity.id !== '') {
-      this.setData(this.activity)
-    } else {
-      this.actionControl.next(Actions.NEW)
-    }
     this.actionControl.subscribe(action => {
       this.currentAction = action
     })
   }
 
+  private evalData (activity: Activity): void {
+    this.setData(activity)
+    if (activity.id === '') {
+      this.actionControl.next(Actions.NEW)
+    }
+  }
+
   setData (activity: Activity): void {
-    // TODO: Validaciones
     this.activityForm.patchValue({
       id: activity.id,
       icon: activity.icon,
@@ -53,35 +66,29 @@ export class ActivityComponent implements OnInit {
     })
   }
 
-  save (): any {
+  save (): void {
     // TODO: validar que en realida algo cambio
-    const activity = new Activity(
-      this.activityForm.value.id,
-      this.activityForm.value.icon,
-      this.activityForm.value.title,
-      this.activityForm.value.startTime,
-      this.activityForm.value.durationTime
-    )
+    const { id, icon, title, startTime, durationTime } = this.activityForm.value
+    const activity = new Activity(id, icon, title, startTime, durationTime)
+
     if (this.currentAction === Actions.EDIT) {
       this.updateEvent.emit(activity)
     }
     if (this.currentAction === Actions.NEW) {
       this.addEvent.emit(activity)
     }
+
     this.actionControl.next(Actions.VIEW)
   }
 
   cancel (): void {
-    if (this.currentAction === Actions.EDIT) {
-      if (this.activity !== undefined) {
-        this.setData(this.activity)
-      }
+    if (this.currentAction === Actions.EDIT && this._activity !== undefined) {
+      this.setData(this._activity)
+      this.actionControl.next(Actions.VIEW)
     }
     if (this.currentAction === Actions.NEW) {
-      // TODO: Redirigir a pantalla principal
-      this.close()
+      this.closeView()
     }
-    this.actionControl.next(Actions.VIEW)
   }
 
   edit (): void {
@@ -89,13 +96,24 @@ export class ActivityComponent implements OnInit {
   }
 
   delete (): void {
-    this.deleteEvent.emit(this.activity?.id)
-    this.close() // TODO: esperar respuesta de confirmación
     // TODO: Alerta de confirmación para eliminar
+    // TODO: No ejecutar si no se ha confirmado la eliminacion
+    this.deleteEvent.emit(this._activity?.id)
+    this.closeView()
   }
 
-  close (): void {
-    // TODO: sacar a componente local-activity
-    void this.router.navigate(['local'])
+  closeView (): void {
+    this.closeEvent.emit(true)
+  }
+
+  ngOnDestroy (): void {
+    this.actionControl.unsubscribe()
+  }
+
+  /**
+   * Validaciones
+   */
+  get isActionView (): boolean {
+    return (this.currentAction === 'view')
   }
 }

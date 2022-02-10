@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 
 import { LocalService } from './../local.service'
 import { Activity } from 'src/app/shared/models/Activity'
 import { Actions } from 'src/app/shared/Actions'
+import { switchMap } from 'rxjs'
 
 @Component({
   selector: 'app-local-activity',
@@ -11,31 +12,40 @@ import { Actions } from 'src/app/shared/Actions'
   styleUrls: ['./local-activity.component.css']
 })
 export class LocalActivityComponent implements OnInit {
+  initialActivity = new Activity('', '', '', '20:00', '00:05')
   hadActivity: boolean = false
+  activityId: string = ''
   activity?: Activity
 
   constructor (
     private readonly route: ActivatedRoute,
+    private readonly router: Router,
     private readonly localService: LocalService
   ) { }
 
   ngOnInit (): void {
-    // Obteniendo ID
-    const activityId = this.route.snapshot.paramMap.get('id') ?? ''
+    this.route.paramMap.pipe(
+      switchMap(params => {
+        this.activityId = params.get('id') ?? ''
+        this.evalActivity()
+        return this.activityId
+      })
+    ).subscribe()
+  }
 
-    // Verifica si el id es para agregar nueva activity
-    if (activityId === Actions.NEW) {
-      this.setActivityData(new Activity('', '', '', '20:00', '00:05'))
+  private evalActivity (): void {
+    // Id puede ser igual a 'new'
+    if (this.activityId === Actions.NEW) {
+      this.setActivityData(this.initialActivity, true)
     } else {
-      // Busca alguna actividad con el id resivido
-      const activity = this.localService.findActivity(activityId)
-      if (activity !== undefined) this.setActivityData(activity)
+      const activity = this.localService.findActivity(this.activityId) ?? this.initialActivity
+      this.setActivityData(activity)
     }
   }
 
-  private setActivityData (activity: Activity): void {
+  private setActivityData (activity: Activity, newActivity: boolean = false): void {
     this.activity = activity
-    this.hadActivity = true
+    this.hadActivity = Boolean(activity.id) || newActivity
   }
 
   deleteActivity (id: string): void {
@@ -47,6 +57,11 @@ export class LocalActivityComponent implements OnInit {
   }
 
   addActivity (activity: Activity): void {
-    this.localService.addActivity(activity)
+    const saved = this.localService.addActivity(activity)
+    void this.router.navigate([`local/activity/${saved.id}`])
+  }
+
+  closeActivity (): void {
+    void this.router.navigate(['local'])
   }
 }

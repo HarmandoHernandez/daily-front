@@ -3,13 +3,9 @@
     [routine]="routine"
     (activityId)="showActivity($event)"
   ></app-routine>
-  <!-- TODO: Componente del btn para los demas btns-->
-  <!--   <button class="add" routerLink="activity/{{ newRoute }}">
-    <span>+ Add Activity</span>
-  </button> -->
-  <app-btn
-    title="Add activity"
-    color="#82ccdd"
+  <util-btn
+    title="Add Activity"
+    color="#00b894"
     (clickEvent)="clickEventAdd()"
-  ></app-btn>
+  ></util-btn>
 </div>

@@ -33,11 +33,3 @@ input:read-only:focus {
   flex-direction: column;
   padding-top: 2em;
 }
-
-button {
-  padding: 0.25em 0.5em;
-  background-color: transparent;
-  border: 2px solid var(--secondary-color);
-  border-radius: 4px;
-  cursor: pointer;
-}

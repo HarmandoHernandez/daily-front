@@ -1,17 +1,21 @@
 import { Component, EventEmitter, Input, Output, AfterViewInit } from '@angular/core'
 
 @Component({
-  selector: 'app-btn',
-  templateUrl: './btn.component.html',
+  selector: 'util-btn',
+  template: `
+  <button class="btn" (click)="click()">
+    <div #background class="background" color [color]="color"></div>
+    <span>{{ title }}</span>
+  </button>
+`,
   styleUrls: ['./btn.component.css']
 })
 export class BtnComponent implements AfterViewInit {
   @Input() title: string = ''
-  @Input() color: string = '#'
+  @Input() color: string = '#ccae62'
   @Output() clickEvent = new EventEmitter<boolean>()
 
   ngAfterViewInit (): void {
-    //
   }
 
   click (): void {
