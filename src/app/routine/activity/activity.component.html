@@ -1,6 +1,6 @@
 <form
   [formGroup]="activityForm"
-  (ngSubmit)="save()"
+  (ngSubmit)="saveChanges()"
   class="form"
   autocomplete="off"
 >
@@ -50,19 +50,19 @@
       <util-btn
         title="Cancel"
         [color]="btnCancelColor"
-        (clickEvent)="cancel()"
+        (clickEvent)="cancelOperation()"
       ></util-btn>
     </ng-template>
     <ng-template #view>
       <util-btn
         title="Edit"
         [color]="btnEditColor"
-        (clickEvent)="edit()"
+        (clickEvent)="editActivity()"
       ></util-btn>
       <util-btn
         title="Delete"
         [color]="btnDeleteColor"
-        (clickEvent)="delete()"
+        (clickEvent)="toggleModal()"
       ></util-btn>
     </ng-template>
   </div>
@@ -76,3 +76,9 @@
   [color]="btnCloseColor"
   (clickEvent)="closeView()"
 ></util-btn>
+
+<util-modal
+  *ngIf="isActionDelete"
+  [data]="deleteModalData"
+  (clickEvent)="clickModal($event)"
+></util-modal>

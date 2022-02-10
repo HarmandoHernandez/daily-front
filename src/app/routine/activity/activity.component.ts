@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs'
 
 import { Activity } from 'src/app/shared/models/Activity'
 import { Actions } from 'src/app/shared/Actions'
+import { ModalActions, ModalData } from 'src/app/shared/models/Modal.model'
 
 @Component({
   selector: 'app-activity',
@@ -11,6 +12,14 @@ import { Actions } from 'src/app/shared/Actions'
   styleUrls: ['./activity.component.css']
 })
 export class ActivityComponent {
+  deleteModalData = new ModalData(
+    'Delete Activity',
+    'Are you sure of delete ** activity?',
+    [
+      new ModalActions(Actions.VIEW, 'No, cancel', '#b2bec3'),
+      new ModalActions(Actions.DELETE, 'Yes, delete', '#e17055')
+    ])
+
   btnEditColor = '#74b9ff'
   btnDeleteColor = '#ff7675'
   btnSaveColor = '#00b894'
@@ -66,7 +75,7 @@ export class ActivityComponent {
     })
   }
 
-  save (): void {
+  saveChanges (): void {
     // TODO: validar que en realida algo cambio
     const { id, icon, title, startTime, durationTime } = this.activityForm.value
     const activity = new Activity(id, icon, title, startTime, durationTime)
@@ -79,9 +88,10 @@ export class ActivityComponent {
     }
 
     this.actionControl.next(Actions.VIEW)
+    // TODO: Retroalimentacion de guardado
   }
 
-  cancel (): void {
+  cancelOperation (): void {
     if (this.currentAction === Actions.EDIT && this._activity !== undefined) {
       this.setData(this._activity)
       this.actionControl.next(Actions.VIEW)
@@ -91,15 +101,28 @@ export class ActivityComponent {
     }
   }
 
-  edit (): void {
+  editActivity (): void {
     this.actionControl.next(Actions.EDIT)
   }
 
-  delete (): void {
-    // TODO: Alerta de confirmación para eliminar
-    // TODO: No ejecutar si no se ha confirmado la eliminacion
+  deleteActivity (): void {
     this.deleteEvent.emit(this._activity?.id)
     this.closeView()
+  }
+
+  toggleModal (): void {
+    this.deleteModalData.body = this.deleteModalData.body.replace('**', `'${this._activity?.title ?? ''}'`)
+    this.actionControl.next(Actions.DELETE)
+  }
+
+  clickModal (action: string): void {
+    if (action === Actions.DELETE) {
+      this.deleteActivity()
+      this.closeView()
+    }
+    if (action === Actions.VIEW) {
+      this.actionControl.next(Actions.VIEW)
+    }
   }
 
   closeView (): void {
@@ -114,6 +137,10 @@ export class ActivityComponent {
    * Validaciones
    */
   get isActionView (): boolean {
-    return (this.currentAction === 'view')
+    return (this.currentAction === Actions.VIEW)
+  }
+
+  get isActionDelete (): boolean {
+    return (this.currentAction === Actions.DELETE)
   }
 }

@@ -1,0 +1,48 @@
+.modal {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+
+  background-color: rgba(53, 53, 53, 0.432);
+}
+
+.body {
+  max-width: var(--max-with-routine-view);
+  padding: 1em;
+  border-radius: 4px;
+  background-color: aliceblue;
+  box-shadow: 0 0px 10px 2px rgba(0, 0, 0, 0.3);
+}
+
+.title {
+  margin: 0;
+}
+
+.description {
+  font-size: 0.9em;
+  line-height: 1.5em;
+}
+
+.btn {
+  width: max-content;
+  max-width: 300px;
+  padding: 0.5em;
+  margin: 10px;
+
+  cursor: pointer;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  transition: border-color 0.4s ease-in-out;
+  font-size: 0.9em;
+}
+
+.btn:hover {
+  border-color: rgba(30, 30, 30, 0.6);
+}
