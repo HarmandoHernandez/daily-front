@@ -12,6 +12,9 @@
     formControlName="icon"
     [readonly]="isActionView"
   />
+  <div *ngIf="isValid('icon')" class="invalid__feedback">
+    The icon is required and must be max 2 characters.
+  </div>
 
   <label for="title" class="form__label">Title</label>
   <input
@@ -21,6 +24,9 @@
     placeholder="breakfast..."
     [readonly]="isActionView"
   />
+  <div *ngIf="isValid('title')" class="invalid__feedback">
+    The icon is required and must be between 3 and 25 characters.
+  </div>
 
   <label for="start" class="form__label">Start hour</label>
   <input
@@ -69,7 +75,6 @@
 </form>
 <br />
 <br />
-<!-- <span>Form {{ activityForm.value | json }} </span> -->
 <util-btn
   *ngIf="isActionView"
   title="Close"

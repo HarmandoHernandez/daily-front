@@ -20,6 +20,7 @@ export class ActivityComponent {
       new ModalActions(Actions.DELETE, 'Yes, delete', '#e17055')
     ])
 
+  // https://flatuicolors.com/palette/us
   btnEditColor = '#74b9ff'
   btnDeleteColor = '#ff7675'
   btnSaveColor = '#00b894'
@@ -44,10 +45,10 @@ export class ActivityComponent {
   // TODO: Validaciones
   activityForm = this.fb.group({
     id: [''],
-    icon: ['', Validators.required],
-    title: [''],
-    startTime: ['12:00'],
-    durationTime: ['00:05']
+    icon: ['', [Validators.required, Validators.maxLength(2)]],
+    title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
+    startTime: ['12:00', Validators.required],
+    durationTime: ['00:05', Validators.required]
   })
 
   constructor (private readonly fb: FormBuilder) { }
@@ -75,8 +76,16 @@ export class ActivityComponent {
     })
   }
 
+  get isValidFormData (): boolean {
+    if (this.activityForm.invalid) {
+      this.activityForm.markAllAsTouched()
+      return false
+    }
+    return true
+  }
+
   saveChanges (): void {
-    // TODO: validar que en realida algo cambio
+    if (!this.isValidFormData) return
     const { id, icon, title, startTime, durationTime } = this.activityForm.value
     const activity = new Activity(id, icon, title, startTime, durationTime)
 
@@ -142,5 +151,9 @@ export class ActivityComponent {
 
   get isActionDelete (): boolean {
     return (this.currentAction === Actions.DELETE)
+  }
+
+  isValid (campo: string): boolean {
+    return (this.activityForm.controls[campo].errors != null) && this.activityForm.controls[campo].touched
   }
 }

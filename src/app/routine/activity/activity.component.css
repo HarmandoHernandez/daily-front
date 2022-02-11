@@ -33,3 +33,10 @@ input:read-only:focus {
   flex-direction: column;
   padding-top: 2em;
 }
+
+.invalid__feedback {
+  max-width: 220px;
+  color: red;
+  font-size: 0.9em;
+  line-height: 1.5em;
+}
