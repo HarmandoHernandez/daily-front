@@ -36,13 +36,18 @@
     [readonly]="isActionView"
   />
 
-  <label for="duration" class="form__label">Duration</label>
+  <label for="duration" class="form__label">Duration (mins)</label>
   <input
     id="duration"
-    type="time"
+    type="number"
     formControlName="durationTime"
     [readonly]="isActionView"
-  />
+    min="5"
+    max="1440"
+  /> 
+  <div *ngIf="isValid('durationTime')" class="invalid__feedback">
+    The duration must be between 5 and 1440 minutes.
+  </div>
 
   <div class="form__actions">
     <div *ngIf="isActionView; then view; else newAndEdit"></div>
@@ -81,7 +86,9 @@
   [color]="btnCloseColor"
   (clickEvent)="closeView()"
 ></util-btn>
-
+<!-- <span>
+  {{activityForm.value | json}}
+</span> -->
 <util-modal
   *ngIf="isActionDelete"
   [data]="deleteModalData"

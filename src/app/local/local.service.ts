@@ -33,7 +33,7 @@ export class LocalService {
       this.saveRoutine(routine)
       return newActivity
     }
-    return new Activity('', '', '', '', '')
+    return new Activity('', '', '', '', 0)
   }
 
   removeActivity (id: string): void {

@@ -12,7 +12,7 @@ import { switchMap } from 'rxjs'
   styleUrls: ['./local-activity.component.css']
 })
 export class LocalActivityComponent implements OnInit {
-  initialActivity = new Activity('', '', '', '20:00', '00:05')
+  initialActivity = new Activity('', '', '', '00:00', 5)
   hadActivity: boolean = false
   activityId: string = ''
   activity?: Activity

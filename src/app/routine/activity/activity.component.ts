@@ -46,8 +46,8 @@ export class ActivityComponent {
     id: [''],
     icon: ['', [Validators.required, Validators.maxLength(2)]],
     title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
-    startTime: ['12:00', Validators.required],
-    durationTime: ['00:05', Validators.required]
+    startTime: ['00:00', Validators.required],
+    durationTime: [5, [Validators.min(5), Validators.max(1440)]]
   })
 
   constructor (private readonly fb: FormBuilder) { }
