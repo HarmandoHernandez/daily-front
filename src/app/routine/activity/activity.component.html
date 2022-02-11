@@ -4,6 +4,7 @@
   class="form"
   autocomplete="off"
 >
+<!-- TODO: Crear select de iconos -->
   <label for="icon" class="form__label">Icon</label>
   <input
     id="icon"
@@ -13,7 +14,7 @@
     [readonly]="isActionView"
   />
   <div *ngIf="isValid('icon')" class="invalid__feedback">
-    The icon is required and must be max 2 characters.
+    The icon is required and must be max 5 characters.
   </div>
 
   <label for="title" class="form__label">Title</label>
@@ -36,13 +37,18 @@
     [readonly]="isActionView"
   />
 
-  <label for="duration" class="form__label">Duration</label>
+  <label for="duration" class="form__label">Duration (mins)</label>
   <input
     id="duration"
-    type="time"
+    type="number"
     formControlName="durationTime"
     [readonly]="isActionView"
-  />
+    min="5"
+    max="1440"
+  /> 
+  <div *ngIf="isValid('durationTime')" class="invalid__feedback">
+    The duration must be between 5 and 1440 minutes.
+  </div>
 
   <div class="form__actions">
     <div *ngIf="isActionView; then view; else newAndEdit"></div>
@@ -81,7 +87,6 @@
   [color]="btnCloseColor"
   (clickEvent)="closeView()"
 ></util-btn>
-
 <util-modal
   *ngIf="isActionDelete"
   [data]="deleteModalData"

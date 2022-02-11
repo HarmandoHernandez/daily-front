@@ -4,6 +4,6 @@ export class Activity {
     public icon: string,
     public title: string,
     public startTime: string,
-    public durationTime: string
+    public durationTime: number
   ) { }
 }
