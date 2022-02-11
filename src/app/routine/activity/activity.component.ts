@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { FormBuilder, Validators } from '@angular/forms'
 import { BehaviorSubject } from 'rxjs'
 
-import { Activity } from 'src/app/shared/models/Activity'
-import { Actions } from 'src/app/shared/Actions'
+import { Activity } from 'src/app/shared/models/Activity.model'
+import { Actions } from 'src/app/shared/enums/Actions.enum'
 import { ModalActions, ModalData } from 'src/app/shared/models/Modal.model'
 
 @Component({
@@ -42,7 +42,6 @@ export class ActivityComponent {
   private currentAction = Actions.VIEW
   private _activity?: Activity
 
-  // TODO: Validaciones
   activityForm = this.fb.group({
     id: [''],
     icon: ['', [Validators.required, Validators.maxLength(2)]],
@@ -97,7 +96,7 @@ export class ActivityComponent {
     }
 
     this.actionControl.next(Actions.VIEW)
-    // TODO: Retroalimentacion de guardado
+    // II TODO: Retroalimentacion de guardado
   }
 
   cancelOperation (): void {

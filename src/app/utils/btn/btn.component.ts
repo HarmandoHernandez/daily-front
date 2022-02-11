@@ -3,10 +3,10 @@ import { Component, EventEmitter, Input, Output, AfterViewInit } from '@angular/
 @Component({
   selector: 'util-btn',
   template: `
-  <button class="btn" (click)="click()">
-    <div #background class="background" color [color]="color"></div>
-    <span>{{ title }}</span>
-  </button>
+    <button class="btn" (click)="click()">
+      <div #background class="background" color [color]="color"></div>
+      <span>{{ title }}</span>
+    </button>
 `,
   styleUrls: ['./btn.component.css']
 })

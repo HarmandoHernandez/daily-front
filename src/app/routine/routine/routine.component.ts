@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, Output, EventEmitter, Input } from '@ang
 import { HasEventTargetAddRemove } from 'rxjs/internal/observable/fromEvent'
 import { fromEvent } from 'rxjs'
 
-import { Activity } from 'src/app/shared/models/Activity'
+import { Activity } from 'src/app/shared/models/Activity.model'
 
 @Component({
   selector: 'app-routine',
@@ -11,16 +11,17 @@ import { Activity } from 'src/app/shared/models/Activity'
 })
 export class RoutineComponent implements OnInit {
   @Input() routine: Activity [] = []
-
   @Output() activityId = new EventEmitter<string>()
 
   ngOnInit (): void {
     this.currentTime(this.routine)
 
+    // II TODO: Con RXJS
     setInterval(this.currentTime.bind(this, this.routine), 1000)
   }
 
   ngAfterViewInit (): void {
+    // II TODO: Cambiar getElementById por ViewChill
     const routineList = document.getElementById('routine')
     const clickEventRoutineList = fromEvent(routineList as HasEventTargetAddRemove<ElementRef>, 'click')
     clickEventRoutineList.subscribe((event: any) => {
@@ -49,7 +50,7 @@ export class RoutineComponent implements OnInit {
     if (current != null) {
       current.classList.add('activity--active')
     }
-    // TODO: quitar el estilo
+    // II TODO: quitar el estilo
   }
 
   identifyActivity (activity: Activity, dateObj: any): boolean {

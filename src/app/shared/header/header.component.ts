@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 
-import { MenuOption } from 'src/app/shared/models/MenuOption'
+import { MenuOption } from 'src/app/shared/models/Option.model'
 
 @Component({
   selector: 'app-header',
@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
     // this.deployMenu()
   }
 
+  // II TODO: Manejo de menu en moviles
   /* const DeployMenu = () => {
     const deploy = document.getElementById('header__deploy-menu')
     const bars = document.querySelectorAll('#header__deploy-menu span')

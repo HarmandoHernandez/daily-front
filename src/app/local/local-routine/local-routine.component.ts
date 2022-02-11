@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 
-import { Activity } from 'src/app/shared/models/Activity'
-import { Actions } from 'src/app/shared/Actions'
+import { Activity } from 'src/app/shared/models/Activity.model'
+import { Actions } from 'src/app/shared/enums/Actions.enum'
 import { LocalService } from './../local.service'
 
 @Component({
