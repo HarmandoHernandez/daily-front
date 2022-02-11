@@ -47,6 +47,9 @@ export class LocalService {
 
   private get newId (): string {
     const allIds = this.routine.map(activity => Number(activity.id))
+    if (allIds.length === 0) {
+      return '1'
+    }
     const id = Math.max(...allIds) + 1
     return id.toString()
   }

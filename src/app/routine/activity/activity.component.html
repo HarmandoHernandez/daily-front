@@ -4,6 +4,7 @@
   class="form"
   autocomplete="off"
 >
+<!-- TODO: Crear select de iconos -->
   <label for="icon" class="form__label">Icon</label>
   <input
     id="icon"
@@ -13,7 +14,7 @@
     [readonly]="isActionView"
   />
   <div *ngIf="isValid('icon')" class="invalid__feedback">
-    The icon is required and must be max 2 characters.
+    The icon is required and must be max 5 characters.
   </div>
 
   <label for="title" class="form__label">Title</label>
@@ -86,9 +87,6 @@
   [color]="btnCloseColor"
   (clickEvent)="closeView()"
 ></util-btn>
-<!-- <span>
-  {{activityForm.value | json}}
-</span> -->
 <util-modal
   *ngIf="isActionDelete"
   [data]="deleteModalData"
