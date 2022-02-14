@@ -14,7 +14,7 @@ export class EvalTokenGuard implements CanActivate, CanActivateChild, CanDeactiv
     private readonly router: Router) {}
 
   canActivate (): Observable<boolean> | boolean {
-    return this.authService.validarToken()
+    return this.authService.validToken
       .pipe(
         tap(valid => {
           if (!valid) {
@@ -39,7 +39,7 @@ export class EvalTokenGuard implements CanActivate, CanActivateChild, CanDeactiv
   }
 
   canLoad (): Observable<boolean> | boolean {
-    return this.authService.validarToken()
+    return this.authService.validToken
       .pipe(
         tap(valid => {
           if (!valid) {

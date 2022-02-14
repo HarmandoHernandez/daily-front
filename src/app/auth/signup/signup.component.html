@@ -1,62 +1,62 @@
 <form
-  class="login100-form"
+  [formGroup]="signupForm"
+  (ngSubmit)="signup()"
+  class="form"
   autocomplete="off"
-  [formGroup]="miFormulario"
-  (ngSubmit)="registro()"
 >
-  <span class="login100-form-title p-b-49"> Nuevo usuario </span>
+  <h4 class="form__title"> Signup </h4>
 
-  <div class="wrap-input100 m-b-23">
-    <span class="label-input100">Nombre</span>
-    <input
-      class="input100"
-      type="text"
-      formControlName="name"
-      placeholder="Ingrese su nombre"
-    />
-    <span class="focus-input100"></span>
+  <label for="name" class="form__label">Name</label>
+  <input
+    id="name"
+    type="name"
+    placeholder="example@gmail.com"
+    formControlName="name"
+  />
+  <div *ngIf="isValid('name')" class="invalid__feedback">
+    The name length must be between 3 and 100 characters.
   </div>
 
-  <div class="wrap-input100 m-b-23">
-    <span class="label-input100">Email</span>
-    <input
-      class="input100"
-      type="email"
-      formControlName="email"
-      placeholder="Ingrese su email"
-    />
-    <span class="focus-input100"></span>
+  <label for="email" class="form__label">Email</label>
+  <input
+    id="email"
+    type="email"
+    placeholder="your.email.here@gmail.com"
+    formControlName="email"
+  />
+  <div *ngIf="isValid('email')" class="invalid__feedback">
+    The email format is invalid.
   </div>
 
-  <div class="wrap-input100">
-    <span class="label-input100">Password</span>
-    <input
-      class="input100"
-      type="password"
-      formControlName="password"
-      placeholder="Ingrese su contraseña"
-    />
-    <span class="focus-input100"></span>
+  <label for="password" class="form__label">Password</label>
+  <input
+    id="password"
+    type="password"
+    formControlName="password"
+    placeholder="****"
+  />
+  <div *ngIf="isValid('password')" class="invalid__feedback">
+    The password length must be between 8 and 50 characters.
   </div>
 
-  <div class="text-right p-t-8 p-b-31"></div>
-
-  <div class="container-login100-form-btn">
-    <div class="wrap-login100-form-btn">
-      <div class="login100-form-bgbtn"></div>
-      <button
-        class="login100-form-btn"
-        type="submit"
-        [disabled]="miFormulario.invalid"
-      >
-        Registro
-      </button>
-    </div>
+  <div class="form__actions">
+    <button #submit type="submit" hidden></button>
+    <util-btn
+      title="Signup"
+      [color]="btnSignupColor"
+      (clickEvent)="submit.click()"
+    ></util-btn>
   </div>
-
-  <div class="flex-col-c p-t-60">
-    <span class="txt1 p-b-17"> ¿Ya tienes una cuenta? </span>
-
-    <a routerLink="/auth/signin" class="txt2"> Ingresa aquí </a>
+<br />
+<div *ngFor="let error of errors" class="invalid__feedback">
+    {{error | titlecase}}
   </div>
 </form>
+<br />
+<br />
+<div class="signup">
+  <span class="signup"> Have you account? </span>
+  <a routerLink="/auth/signin" class="txt2"> Signin here.</a>
+</div>
+
+

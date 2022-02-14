@@ -4,8 +4,8 @@
     <span class="header__bar"></span>
     <span class="header__bar"></span>
   </div>
-  <a href="#" class="header__logo">
-    <h1 class="header__logo-title">Daily</h1>
+  <a class="header__logo" routerLink="/home">
+    <h2  class="header__logo-title">Daily</h2>
   </a>
   <nav class="header__nav">
     <ul class="header__menu">
@@ -16,13 +16,14 @@
           routerLink="{{ option.id }}"
           routerLinkActive="header__link--active"
         >
-          <span>{{ option.title.toUpperCase() }}</span>
+          <span>{{ option.title | uppercase }}</span>
         </a>
       </li>
     </ul>
   </nav>
   <div class="header__user">
-    <button (click)="logout()">Logout</button>
+    <span>{{userName}}</span>
+    <button *ngIf="isLognin" (click)="logout()" class="btn">Sign out</button>
     <div class="header__avatar"></div>
   </div>
 </header>
