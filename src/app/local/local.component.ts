@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core'
 
 @Component({
   selector: 'app-local',
-  templateUrl: './local.component.html',
-  styleUrls: ['./local.component.css']
+  template: '',
+  styles: ['']
 })
 export class LocalComponent implements OnInit, OnDestroy {
   ngOnDestroy (): void {

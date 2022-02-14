@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-
+import { Router } from '@angular/router'
+import { Usuario } from 'src/app/shared/models/Auth.model'
+import { AuthService } from 'src/app/shared/services/auth.service'
 import { MenuOption } from 'src/app/shared/models/Option.model'
 
 @Component({
@@ -17,6 +19,18 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit (): void {
     // this.deployMenu()
+  }
+
+  get usuario (): Usuario {
+    return this.authService.usuario
+  }
+
+  constructor (private readonly router: Router,
+    private readonly authService: AuthService) { }
+
+  logout (): void {
+    void this.router.navigateByUrl('/auth')
+    this.authService.logout()
   }
 
   // II TODO: Manejo de menu en moviles
