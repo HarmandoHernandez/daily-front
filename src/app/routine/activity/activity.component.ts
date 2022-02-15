@@ -8,8 +8,7 @@ import { ModalActions, ModalData } from 'src/app/shared/models/Modal.model'
 
 @Component({
   selector: 'app-activity',
-  templateUrl: './activity.component.html',
-  styleUrls: ['./activity.component.css']
+  templateUrl: './activity.component.html'
 })
 export class ActivityComponent {
   deleteModalData = new ModalData(

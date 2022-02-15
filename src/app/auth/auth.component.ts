@@ -9,11 +9,11 @@ import { Component, OnInit } from '@angular/core'
   `,
   styles: [`
     .auth {
-      width: 100%;
+      width: max-content;
       max-width: var(--max-with-routine-view);
       margin: 0 auto;
       text-align: center;
-      align-items: center;
+
     }`]
 })
 export class AuthComponent implements OnInit {

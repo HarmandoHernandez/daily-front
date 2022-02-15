@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { Usuario } from 'src/app/shared/models/Auth.model'
 import { AuthService } from 'src/app/shared/services/auth.service'
 import { MenuOption } from 'src/app/shared/models/Option.model'
 
@@ -17,16 +16,22 @@ export class HeaderComponent implements OnInit {
     new MenuOption('cloud', 'Cloud')
   ]
 
+  userName: string = ''
+  isLognin = false
+
   ngOnInit (): void {
     // this.deployMenu()
+    this.authService.validToken.subscribe()
+    this.authService.user.subscribe(user => {
+      this.isLognin = (user.uid !== '')
+      this.userName = user.name
+    })
   }
 
-  get usuario (): Usuario {
-    return this.authService.usuario
-  }
-
-  constructor (private readonly router: Router,
-    private readonly authService: AuthService) { }
+  constructor (
+    private readonly router: Router,
+    private readonly authService: AuthService
+  ) { }
 
   logout (): void {
     void this.router.navigateByUrl('/auth')
