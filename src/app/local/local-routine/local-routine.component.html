@@ -1,11 +1,9 @@
-<div class="local__routine">
-  <app-routine
-    [routine]="routine"
-    (activityId)="showActivity($event)"
-  ></app-routine>
-  <util-btn
-    title="Add Activity"
-    color="#00b894"
-    (clickEvent)="clickEventAdd()"
-  ></util-btn>
-</div>
+<app-routine
+  [routine]="routine"
+  (activityId)="showActivity($event)"
+></app-routine>
+<util-btn
+  title="Add Activity"
+  color="#00b894"
+  (clickEvent)="clickEventAdd()"
+></util-btn>

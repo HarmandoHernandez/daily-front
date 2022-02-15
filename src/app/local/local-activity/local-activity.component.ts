@@ -7,9 +7,12 @@ import { Actions } from 'src/app/shared/enums/Actions.enum'
 import { switchMap } from 'rxjs'
 
 @Component({
-  selector: 'app-local-activity',
+  selector: 'local-activity',
   templateUrl: './local-activity.component.html',
-  styleUrls: ['./local-activity.component.css']
+  styles: [`
+  .alert__nofound {
+    padding: 2em;
+  }`]
 })
 export class LocalActivityComponent implements OnInit {
   initialActivity = new Activity('', '', '', '00:00', 5)

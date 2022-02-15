@@ -14,7 +14,7 @@
   --font-size-body: 1.25em;
   --font-size-caption: 1em;
   /* Sizes*/
-  --max-with-routine-view: 30em;
+  --max-with-content: 30em;
 }
 
 .body {
@@ -44,6 +44,14 @@
   .body {
     font-size: 14px;
   }
+}
+
+/** **/
+.content {
+  width: 100%;
+  max-width: var(--max-with-content);
+  margin: 0 auto;
+  text-align: center;
 }
 
 /** FORMS **/

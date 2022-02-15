@@ -6,13 +6,12 @@ import { Actions } from 'src/app/shared/enums/Actions.enum'
 import { LocalService } from './../local.service'
 
 @Component({
-  selector: 'app-local-routine',
-  templateUrl: './local-routine.component.html',
-  styleUrls: ['./local-routine.component.css']
+  selector: 'local-routine',
+  templateUrl: './local-routine.component.html'
 })
 export class LocalRoutineComponent implements OnInit {
   routine: Activity [] = []
-  // Se conecta al service y le envia los datos a los componentes hijos incrustados
+  // Se conecta al service y le envia los datos a los componentes incrustados
   constructor (
     private readonly route: ActivatedRoute,
     private readonly router: Router,

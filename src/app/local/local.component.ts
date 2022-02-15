@@ -1,18 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'app-local',
-  template: '',
-  styles: ['']
+  template: `
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>`
 })
-export class LocalComponent implements OnInit, OnDestroy {
-  ngOnDestroy (): void {
-    console.log('Local Component')
-  }
-
-  ngOnInit (): void {
-    console.log('Local Component')
-  }
+export class LocalComponent {
   /* yesterday: String = ''
   today: String = ''
   tomorrow: String = ''

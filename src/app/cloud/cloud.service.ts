@@ -6,11 +6,5 @@ import { HttpClient } from '@angular/common/http'
   providedIn: 'root'
 })
 export class CloudService {
-  private readonly API = 'https://api/v1'
-
   constructor (private readonly https: HttpClient) { }
-
-  /* getProducts (): Observable<Activity[]> {
-    return this.http.get<Activity[]>(this.API)
-  } */
 }
