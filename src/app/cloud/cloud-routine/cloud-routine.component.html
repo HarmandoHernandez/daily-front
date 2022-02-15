@@ -1,1 +1,9 @@
-<p>cloud-routine works!</p>
+<app-routine
+  [routine]="routine"
+  (activityId)="showActivity($event)"
+></app-routine>
+<util-btn
+  title="Add Activity"
+  color="#00b894"
+  (clickEvent)="clickEventAdd()"
+></util-btn>

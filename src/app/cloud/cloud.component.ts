@@ -1,5 +1,4 @@
 import { Component } from '@angular/core'
-import { CloudService } from './cloud.service'
 
 @Component({
   selector: 'app-cloud',
@@ -9,6 +8,4 @@ import { CloudService } from './cloud.service'
     </div>
   `
 })
-export class CloudComponent {
-  constructor (private readonly service: CloudService) { }
-}
+export class CloudComponent { }

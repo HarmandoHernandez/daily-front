@@ -1,1 +1,13 @@
-<p>cloud-activity works!</p>
+<app-activity
+  *ngIf="hadActivity; else nofound"
+  [activity]="activity"
+  (deleteEvent)="deleteActivity($event)"
+  (updateEvent)="updateActivity($event)"
+  (addEvent)="addActivity($event)"
+  (closeEvent)="closeActivity()"
+>
+</app-activity>
+
+<ng-template #nofound>
+  <div class="alert__nofound">Activity not found.</div>
+</ng-template>
