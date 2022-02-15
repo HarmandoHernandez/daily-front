@@ -1,29 +1,29 @@
 <header class="header">
-  <div class="header__deploy-menu" id="header__deploy-menu">
-    <span class="header__bar"></span>
-    <span class="header__bar"></span>
-    <span class="header__bar"></span>
+  
+  <div class="header__head">
+    <div class="toggle__menu" #toggle__menu (click)="toggleMenu()">
+      <span class="toggle__line"></span>
+      <span class="toggle__line"></span>
+      <span class="toggle__line"></span>
+    </div>
+    <a class="logo" routerLink="/home">Daily</a>
   </div>
-  <a class="header__logo" routerLink="/home">
-    <h2  class="header__logo-title">Daily</h2>
-  </a>
-  <nav class="header__nav">
-    <ul class="header__menu">
-      <li *ngFor="let option of MENU_OPTIONS" id="{{ option.id }}">
-        <a
-          href="#"
-          class="header__link"
-          routerLink="{{ option.id }}"
-          routerLinkActive="header__link--active"
-        >
-          <span>{{ option.title | uppercase }}</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+  
+  <ul class="header__menu" #header__menu>
+    <li *ngFor="let option of MENU_OPTIONS">
+      <a
+        class="menu__link"
+        routerLink="{{ option.id }}"
+        routerLinkActive="menu__link--active"
+      >
+        {{ option.title | uppercase }}
+      </a>
+    </li>
+  </ul>
+
   <div class="header__user">
     <span>{{userName}}</span>
-    <button *ngIf="isLognin" (click)="logout()" class="btn">Sign out</button>
-    <div class="header__avatar"></div>
+    <button type="button" *ngIf="isLognin" (click)="logout()" class="btn">Sign out</button>
+    <img class="header__avatar" src="./../../../assets/icons/account_circle_black_24dp.svg" alt="user">
   </div>
 </header>
