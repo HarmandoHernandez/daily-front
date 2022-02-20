@@ -4,7 +4,7 @@
   class="form"
   autocomplete="off"
 >
-  <h4 class="form__title"> Signup </h4>
+  <h4 class="form__title">Signup</h4>
 
   <label for="name" class="form__label">Name</label>
   <input
@@ -47,9 +47,9 @@
       (clickEvent)="submit.click()"
     ></util-btn>
   </div>
-<br />
-<div *ngFor="let error of errors" class="invalid__feedback">
-    {{error | titlecase}}
+  <br />
+  <div *ngFor="let error of errors" class="invalid__feedback">
+    {{ error | titlecase }}
   </div>
 </form>
 <br />
@@ -58,5 +58,3 @@
   <span class="signup"> Have you account? </span>
   <a routerLink="/auth/signin" class="txt2"> Signin here.</a>
 </div>
-
-
