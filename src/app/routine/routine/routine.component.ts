@@ -3,6 +3,7 @@ import { HasEventTargetAddRemove } from 'rxjs/internal/observable/fromEvent'
 import { fromEvent } from 'rxjs'
 
 import { Activity } from 'src/app/shared/models/Activity.model'
+import { UtilsService } from 'src/app/shared/services/utils.service'
 
 @Component({
   selector: 'app-routine',
@@ -12,6 +13,10 @@ import { Activity } from 'src/app/shared/models/Activity.model'
 export class RoutineComponent implements OnInit {
   @Input() routine: Activity [] = []
   @Output() activityId = new EventEmitter<string>()
+
+  constructor (
+    private readonly utilsService: UtilsService
+  ) { }
 
   ngOnInit (): void {
     this.currentTime(this.routine)
@@ -63,7 +68,7 @@ export class RoutineComponent implements OnInit {
     // const durationHours = Number(activityDurationTime[0])
     const durationMins = activity.durationTime// Number(activityDurationTime[1])
 
-    const duration = this.calcTime(durationMins + startMin)
+    const duration = this.utilsService.calcTime(durationMins + startMin)
 
     const timeActivityStart = new Date(year, month, day, startHour, startMin, 0, 0)
     const timeActivityEnd = new Date(year, month, day, duration.hours + startHour, duration.min, 0, 0)
@@ -73,14 +78,5 @@ export class RoutineComponent implements OnInit {
     const end = date.getTime() < timeActivityEnd.getTime()
 
     return end && start
-  }
-
-  calcTime (min: number): { hours: number, min: number} {
-    let hours = 0
-    while (min > 59) {
-      min = min - 60
-      hours++
-    }
-    return { hours, min }
   }
 }

@@ -3,5 +3,4 @@ export enum Actions {
   VIEW = 'view',
   EDIT = 'edit',
   DELETE = 'delete'
-
 }
