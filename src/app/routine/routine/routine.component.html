@@ -1,9 +1,10 @@
 <ul class="routine" id="routine">
   <li class="activity" *ngFor="let activiy of routine" id="{{ activiy.id }}">
     <span class="activity__icon">{{ activiy.icon }}</span>
-    <p class="activity__title">{{ activiy.title }}</p>
-    <p class="activity__time">
-      {{ activiy.startTime }} · {{ activiy.durationTime }}
-    </p>
+    <p class="activity__title">{{ activiy.title | titlecase }}</p>
+    <div class="activity__time">
+      <p class="activity__start">{{ activiy.startTime | hour }}</p>
+      <p class="activity__duration">{{ activiy.durationTime | min }}</p>
+    </div>
   </li>
 </ul>

@@ -1,20 +1,17 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 
-import { LocalService } from './../local.service'
 import { Activity } from 'src/app/shared/models/Activity.model'
 import { Actions } from 'src/app/shared/enums/Actions.enum'
 import { switchMap } from 'rxjs'
+import { CloudService } from '../cloud.service'
 
 @Component({
-  selector: 'local-activity',
-  templateUrl: './local-activity.component.html',
-  styles: [`
-  .alert__nofound {
-    padding: 2em;
-  }`]
+  selector: 'cloud-activity',
+  templateUrl: './cloud-activity.component.html',
+  styles: []
 })
-export class LocalActivityComponent implements OnInit {
+export class CloudActivityComponent implements OnInit {
   initialActivity = new Activity('', '', '', '00:00', 5)
   hadActivity: boolean = false
   activityId: string = ''
@@ -23,7 +20,7 @@ export class LocalActivityComponent implements OnInit {
   constructor (
     private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly localService: LocalService
+    private readonly cloudService: CloudService
   ) { }
 
   ngOnInit (): void {
@@ -37,11 +34,10 @@ export class LocalActivityComponent implements OnInit {
   }
 
   private evalActivity (): void {
-    // Id puede ser igual a 'new'
     if (this.activityId === Actions.NEW) {
       this.setActivityData(this.initialActivity, true)
     } else {
-      const activity = this.localService.findActivity(this.activityId) ?? this.initialActivity
+      const activity = this.cloudService.findActivity(this.activityId) ?? this.initialActivity
       this.setActivityData(activity)
     }
   }
@@ -52,19 +48,19 @@ export class LocalActivityComponent implements OnInit {
   }
 
   deleteActivity (id: string): void {
-    this.localService.removeActivity(id)
+    this.cloudService.removeActivity(id)
   }
 
   updateActivity (activity: Activity): void {
-    this.localService.updateActivity(activity)
+    this.cloudService.updateActivity(activity)
   }
 
   addActivity (activity: Activity): void {
-    const saved = this.localService.addActivity(activity)
-    void this.router.navigate([`local/activity/${saved.id}`])
+    const saved = this.cloudService.addActivity(activity)
+    void this.router.navigate([`cloud/activity/${saved.id}`])
   }
 
   closeActivity (): void {
-    void this.router.navigate(['local'])
+    void this.router.navigate(['cloud'])
   }
 }

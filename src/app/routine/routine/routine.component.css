@@ -1,3 +1,7 @@
+/* * {
+  border: 1px solid red;
+}
+ */
 .routine {
   display: flex;
   flex-direction: column;
@@ -10,11 +14,12 @@
 
 .activity {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   gap: 1em;
-  min-width: 230px;
   width: 80%;
+  min-width: 230px;
   padding: 0 1em;
   box-sizing: border-box;
 
@@ -28,23 +33,29 @@
 }
 
 .activity--active {
-  width: 100%;
+  width: 90%;
   background-color: var(--active-color);
 }
 
 .activity__icon,
 .activity__title,
 .activity__time {
-  text-decoration: none;
   line-height: 1.5em;
+  text-decoration: none;
+  pointer-events: none;
   font-size: var(--font-size-caption);
   color: var(--black-color);
+}
 
-  pointer-events: none;
+.activity__start,
+.activity__duration {
+  font-size: 0.7em;
+  line-height: 1.4em;
+  margin: 0;
 }
 
 .activity__icon {
-  border-radius: 50%;
+  width: 3em;
 }
 
 .activity__title {

@@ -11,10 +11,14 @@
   --font-family-body: "Montserrat", sans-serif;
   --font-family-title: "Raleway", sans-serif;
   --font-size-title: 2em;
-  --font-size-body: 1.25em;
-  --font-size-caption: 1em;
+  --font-size-caption: 0.9em;
+
   /* Sizes*/
-  --max-with-routine-view: 30em;
+  --max-with-content: 30em;
+
+  /* Toggle menu properties */
+  --delay-toggle-menu: 0.4s;
+  --width--toggle-menu: 30px;
 }
 
 .body {
@@ -25,25 +29,12 @@
   background-color: var(--primary-color);
 }
 
-/* Laptop */
-@media only screen and (max-width: 1100px) {
-  .body {
-    font-size: 18px;
-  }
-}
-
-/* - Tablet */
-@media only screen and (max-width: 950px) {
-  .body {
-    font-size: 16px;
-  }
-}
-
-/* - Mobile */
-@media only screen and (max-width: 630px) {
-  .body {
-    font-size: 14px;
-  }
+/** Limit content **/
+.content {
+  width: 100%;
+  max-width: var(--max-with-content);
+  margin: 0 auto;
+  text-align: center;
 }
 
 /** FORMS **/
@@ -96,3 +87,28 @@ input:read-only:focus {
   line-height: 1.5em;
 }
 
+/* Laptop */
+@media only screen and (max-width: 1100px) {
+  .body {
+    font-size: 18px;
+  }
+}
+
+/* Tablet */
+@media only screen and (max-width: 950px) {
+  .body {
+    font-size: 16px;
+  }
+}
+
+/* Mobile */
+@media only screen and (max-width: 630px) {
+  .body {
+    font-size: 14px;
+  }
+}
+
+/* Scrollbar hiden */
+::-webkit-scrollbar {
+  display: none;
+}
