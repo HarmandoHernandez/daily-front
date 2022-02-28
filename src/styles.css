@@ -81,7 +81,7 @@ input:read-only:focus {
 }
 
 .invalid__feedback {
-  max-width: 220px;
+  max-width: 210px;
   color: red;
   font-size: 0.9em;
   line-height: 1.5em;

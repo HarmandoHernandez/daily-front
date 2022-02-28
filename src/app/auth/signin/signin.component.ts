@@ -13,8 +13,8 @@ export class SigninComponent {
   btnSigninColor = '#74b9ff'
   errors: string[] = []
   signinForm: FormGroup = this.fb.group({
-    email: ['test1@test.com', [Validators.required, Validators.email]], // TODO: Validar con rxjs
-    password: ['12345678', [Validators.required, Validators.minLength(8)]]
+    email: ['', [Validators.required, Validators.email]], // TODO: Validar con rxjs
+    password: ['', [Validators.required, Validators.minLength(8)]]
   })
 
   constructor (private readonly fb: FormBuilder,
@@ -35,14 +35,17 @@ export class SigninComponent {
 
     this.authService.signin(email, password)
       .subscribe(({ status, message }) => {
+        this.errors = []
+        console.log(message)
         if (status === STATUS.SUCCESS) {
           void this.router.navigateByUrl('/cloud')
         }
         if (status === STATUS.ERROR && Array.isArray(message)) {
-          this.errors = []
           message.forEach(error => {
             this.errors.push(`${error.param} is ${error.error}.`)
           })
+        } else {
+          this.errors.push('Something went wrong, please try again later.')
         }
       })
   }
