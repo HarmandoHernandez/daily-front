@@ -13,8 +13,8 @@ export class SigninComponent {
   btnSigninColor = '#74b9ff'
   errors: string[] = []
   signinForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.email]], // TODO: Validar con rxjs
-    password: ['', [Validators.required, Validators.minLength(8)]]
+    email: ['armando@gmail.com', [Validators.required, Validators.email]], // TODO: Validar con rxjs
+    password: ['123456789', [Validators.required, Validators.minLength(8)]]
   })
 
   constructor (private readonly fb: FormBuilder,
@@ -34,18 +34,22 @@ export class SigninComponent {
     const { email, password } = this.signinForm.value
 
     this.authService.signin(email, password)
-      .subscribe(({ status, message }) => {
+      .subscribe(resp => {
         this.errors = []
-        console.log(message)
-        if (status === STATUS.SUCCESS) {
+        if (resp === null) {
+          this.errors.push('Without account')
+          return
+        }
+        if (resp.status === STATUS.SUCCESS) {
           void this.router.navigateByUrl('/cloud')
         }
-        if (status === STATUS.ERROR && Array.isArray(message)) {
-          message.forEach(error => {
+
+        if (resp.status === STATUS.ERROR && Array.isArray(resp.message)) {
+          resp.message.forEach((error: { param: string, error: string }) => {
             this.errors.push(`${error.param} is ${error.error}.`)
           })
         } else {
-          this.errors.push('Something went wrong, please try again later.')
+          this.errors.push('Something went wrong, please try again later')
         }
       })
   }

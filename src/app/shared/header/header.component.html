@@ -1,5 +1,4 @@
 <header class="header">
-  
   <div class="header__head">
     <div class="toggle__menu" #toggle__menu (click)="toggleMenu()">
       <span class="toggle__line"></span>
@@ -8,7 +7,7 @@
     </div>
     <a class="logo" routerLink="/home">Daily</a>
   </div>
-  
+
   <ul class="header__menu" #header__menu>
     <li *ngFor="let option of MENU_OPTIONS">
       <a
@@ -22,8 +21,14 @@
   </ul>
 
   <div class="header__user">
-    <span>{{userName}}</span>
-    <button type="button" *ngIf="isLognin" (click)="logout()" class="btn">Sign out</button>
-    <img class="header__avatar" src="./../../../assets/icons/account_circle_black_24dp.svg" alt="user">
+    <span>{{ userName }}</span>
+    <button type="button" *ngIf="isLognin" (click)="logout()" class="btn">
+      Sign out
+    </button>
+    <img
+      class="header__avatar"
+      src="./../../../assets/icons/account_circle_black_24dp.svg"
+      alt="user"
+    />
   </div>
 </header>

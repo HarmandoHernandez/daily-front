@@ -37,19 +37,22 @@ export class AuthService {
       )
   }
 
+  // GeneralFormat
   signin (email: string, password: string): Observable<GeneralFormat> {
     const url = `${this.baseUrl}/auth`
     const body = { email, password }
 
-    return this.http.post<GeneralFormat>(url, body)
+    // GeneralFormat
+    return this.http.post<GeneralFormat>(url, body) // { observe: 'response' }
       .pipe(
         tap(resp => {
-          if (resp.status === STATUS.SUCCESS && !Array.isArray(resp.message)) {
-            localStorage.setItem(this.tokenItem, resp.message.token ?? '')
+          console.log(resp)
+          if (resp !== null && resp.status === STATUS.SUCCESS && !Array.isArray(resp.message)) {
+            localStorage.setItem(this.tokenItem, resp.message.token)
           }
         }),
         map(resp => resp),
-        catchError(({ error }) => {
+        catchError(error => {
           return of(error)
         })
       )
