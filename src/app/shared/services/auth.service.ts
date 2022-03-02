@@ -46,7 +46,6 @@ export class AuthService {
     return this.http.post<GeneralFormat>(url, body) // { observe: 'response' }
       .pipe(
         tap(resp => {
-          console.log(resp)
           if (resp !== null && resp.status === STATUS.SUCCESS && !Array.isArray(resp.message)) {
             localStorage.setItem(this.tokenItem, resp.message.token)
           }
@@ -78,7 +77,7 @@ export class AuthService {
         map(({ status, message }) => {
           if (!Array.isArray(message)) {
             localStorage.setItem(this.tokenItem, message.token)
-            this.user$.next({ name: message.name ?? '', uid: message.uid ?? '' })
+            this.user$.next({ name: message.name ?? '', uid: message.id ?? '' })
           }
           return (status === STATUS.SUCCESS)
         }),

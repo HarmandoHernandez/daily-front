@@ -42,6 +42,7 @@ export class SigninComponent {
         }
         if (resp.status === STATUS.SUCCESS) {
           void this.router.navigateByUrl('/cloud')
+          return
         }
 
         if (resp.status === STATUS.ERROR && Array.isArray(resp.message)) {

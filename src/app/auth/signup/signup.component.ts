@@ -13,9 +13,9 @@ export class SignupComponent {
   btnSignupColor = '#74b9ff'
   errors: string[] = []
   signupForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-    email: ['', [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(100)]],
-    password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(50)]]
+    name: ['Armando', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+    email: ['armando@gmail.com', [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(100)]],
+    password: ['123456789', [Validators.required, Validators.minLength(8), Validators.maxLength(50)]]
   })
 
   constructor (private readonly fb: FormBuilder,
@@ -39,13 +39,15 @@ export class SignupComponent {
         this.errors = []
         if (status === STATUS.SUCCESS) {
           void this.router.navigateByUrl('/cloud')
+          return
         }
         if (status === STATUS.ERROR && Array.isArray(message)) {
           message.forEach(error => {
             this.errors.push(`${error.param} is ${error.error}.`)
           })
+        } else {
+          this.errors.push('Something went wrong, please try again later.')
         }
-        this.errors.push('Something went wrong, please try again later.')
       })
   }
 
