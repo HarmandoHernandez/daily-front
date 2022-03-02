@@ -63,12 +63,6 @@ export class AuthService {
     const token = localStorage.getItem(this.tokenItem) ?? ''
     if (token === '') return of(false)
 
-    /* const params = new HttpParams()
-          .set('api_key', this.apiKey)
-          .set('limit', '10')
-
-    this.http.get<SearchGifsResponse>(`${ this.servicioUrl }/search`, { params } ) */
-
     const headers = new HttpHeaders()
       .set('x-token', token)
 

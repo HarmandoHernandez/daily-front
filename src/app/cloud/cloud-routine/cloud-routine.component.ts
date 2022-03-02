@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 
 import { Activity } from 'src/app/shared/models/Activity.model'
@@ -10,7 +10,7 @@ import { CloudService } from '../cloud.service'
   templateUrl: './cloud-routine.component.html',
   styles: []
 })
-export class CloudRoutineComponent implements OnInit {
+export class CloudRoutineComponent implements OnInit, OnDestroy {
   routine: Activity [] = []
   // Se conecta al service y le envia los datos a los componentes incrustados
   constructor (
@@ -20,7 +20,13 @@ export class CloudRoutineComponent implements OnInit {
   ) { }
 
   ngOnInit (): void {
-    this.routine = this.cloudService.routine
+    this.cloudService.routine.subscribe(routine => {
+      this.routine = routine
+      console.log('routine', routine)
+    })
+    if (this.routine.length === 0) {
+      this.cloudService.refersh()
+    }
   }
 
   showActivity (activityId: string): void {
@@ -29,5 +35,9 @@ export class CloudRoutineComponent implements OnInit {
 
   clickEventAdd (): void {
     void this.router.navigate([`activity/${Actions.NEW}`], { relativeTo: this.route })
+  }
+
+  ngOnDestroy (): void {
+    console.log('destroy')
   }
 }
