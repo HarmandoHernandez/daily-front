@@ -4,7 +4,7 @@ export interface Error {
 }
 
 export interface SuccessFormat {
-  uid: string
+  id: string
   name: string
   token: string
 }

@@ -1,56 +1,117 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Activity } from 'src/app/shared/models/Activity.model'
+import { environment } from 'src/environments/environment'
+import { catchError, map, tap } from 'rxjs/operators'
+import { AuthService } from '../shared/services/auth.service'
+import { Observable, of, Subject } from 'rxjs'
+import { GeneralFormat } from '../shared/models/Auth.model'
 
 @Injectable({
   providedIn: 'root'
 })
 export class CloudService {
-  private readonly ROUTINE_NAME = 'routine'
+  private readonly baseUrl: string = environment.API_URL
+  private readonly tokenItem = 'token'
+  readonly url = `${this.baseUrl}/activity`
 
-  get routine (): Activity[] {
-    const routine = JSON.parse(localStorage.getItem(this.ROUTINE_NAME) ?? '[]')
-    return this.orderByStartTime(routine)
+  private readonly activities$ = new Subject<Activity[]>()
+  activities: Activity[] = []
+
+  constructor (private readonly http: HttpClient,
+    private readonly authService: AuthService) {
+    this.getUser()
+  }
+
+  getUser (): void {
+    this.authService.validToken.subscribe()
+    this.authService.user.subscribe(user => {
+      if (user.uid.length > 0) {
+        const url = `${this.baseUrl}/user/${user.uid}`
+        this.http.get<any>(url).pipe(
+          map(resp => resp.message.activities)
+        ).subscribe(activities => {
+          this.activities = activities
+          this.activities$.next(activities)
+        })
+      }
+    })
+  }
+
+  refersh (): void {
+    this.activities$.next(this.activities)
+  }
+
+  get routine (): Observable<Activity[]> {
+    return this.activities$.asObservable()
   }
 
   findActivity (id: string): Activity | undefined {
-    return this.routine.find(activity => activity.id === id)
+    // TODO: 1st Buscar en local
+    // TODO: 2nd Buscar en api, si esta vacia la lista local
+    return this.activities.find(activity => activity.id === id)
   }
 
-  addActivity (newActivity: Activity): Activity {
-    newActivity.id = this.newId
-    const routine = this.routine
-    routine.push(newActivity)
-    this.saveRoutine(routine)
-    return newActivity
+  addActivity (newActivity: Activity): Observable<GeneralFormat> {
+    const body = newActivity
+    const token = localStorage.getItem(this.tokenItem) ?? ''
+
+    const headers = new HttpHeaders()
+      .set('x-token', token)
+
+    // GeneralFormat
+    return this.http.post<any>(this.url, body, { headers }) // { observe: 'response' }
+      .pipe(
+        tap(resp => {
+          this.activities.push(resp.message)
+          this.activities$.next(this.activities)
+        }),
+        map(resp => resp),
+        catchError(error => {
+          return of(error)
+        })
+      )
   }
 
-  updateActivity (newActivity: Activity): Activity {
-    const routine = this.routine
+  updateActivity (newActivity: Activity): Observable<GeneralFormat> {
+    const body = newActivity
+    const token = localStorage.getItem(this.tokenItem) ?? ''
+    const headers = new HttpHeaders()
+      .set('x-token', token)
+
+    // GeneralFormat
+    return this.http.patch<any>(this.url, body, { headers }) // { observe: 'response' }
+      .pipe(
+        map(resp => resp),
+        catchError(error => {
+          return of(error)
+        })
+      )
+
+    /* const routine = this.routine
     const activityIndex = routine.findIndex(activity => activity.id === newActivity.id)
     if (activityIndex !== -1) {
       routine[activityIndex] = newActivity
       this.saveRoutine(routine)
       return newActivity
-    }
-    return new Activity('', '', '', '', 0)
+    } */
   }
 
-  removeActivity (id: string): void {
-    const routine = this.routine.filter(activity => activity.id !== id)
-    this.saveRoutine(routine)
-  }
+  removeActivity (id: string): Observable<any> {
+    /*  const routine = this.routine.filter(activity => activity.id !== id)
+    this.saveRoutine(routine) */
+    const token = localStorage.getItem(this.tokenItem) ?? ''
+    const headers = new HttpHeaders()
+      .set('x-token', token)
 
-  private saveRoutine (routine: Activity[]): void {
-    localStorage.setItem(this.ROUTINE_NAME, JSON.stringify(routine))
-  }
-
-  private get newId (): string {
-    const allIds = this.routine.map(activity => Number(activity.id))
-    if (allIds.length === 0) {
-      return '1'
-    }
-    const id = Math.max(...allIds) + 1
-    return id.toString()
+    // GeneralFormat
+    return this.http.delete<any>(`${this.url}/${id}`, { headers })
+      .pipe(
+        map(resp => resp),
+        catchError(error => {
+          return of(error)
+        })
+      )
   }
 
   private orderByStartTime (routine: Activity[]): Activity[] {

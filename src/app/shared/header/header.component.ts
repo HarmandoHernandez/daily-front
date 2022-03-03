@@ -44,8 +44,8 @@ export class HeaderComponent implements OnInit {
   toggleMenu (): void {
     this.togggleMenu?.nativeElement.classList.toggle('toggle__menu--active')
 
-    console.log(this.togggleMenu?.nativeElement.childNodes)
-    console.log(this.togggleMenu?.nativeElement.children.item(1))
+    /* console.log(this.togggleMenu?.nativeElement.childNodes)
+    console.log(this.togggleMenu?.nativeElement.children.item(1)) */
 
     this.togggleMenu?.nativeElement.children.item(0)?.classList.toggle('toggle__line--active')
     this.togggleMenu?.nativeElement.children.item(1)?.classList.toggle('toggle__line--active')
